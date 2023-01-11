@@ -1,5 +1,5 @@
 # vaultwarden-fly.io
-Quick guide on getting Vaultwarden running on fly.io!
+Quick guide on getting [Vaultwarden](https://github.com/dani-garcia/vaultwarden) (Lightweight Bitwarden compatible server written in rust) running on fly.io!
 
 
 ## Setup
