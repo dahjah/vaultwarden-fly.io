@@ -1,0 +1,46 @@
+app = "YOUR_FLY_APP_NAME" # APP NAME HERE
+[mounts]
+  destination = "/data"
+  source = "YOUR_FLY_VOLUME_NAME" # VOLUME NAME HERE
+
+kill_signal = "SIGINT"
+kill_timeout = 5
+processes = []
+
+[env]
+    # Fill this in with any environment variables you want to configure by default here.
+    # Full list of env variables can be found here: https://github.com/dani-garcia/vaultwarden/blob/main/.env.template
+    # Most settings you can also configure in the admin panel if you prefer.
+
+[build]
+  image = "vaultwarden/server:latest" # Change this if a specific version is desired.
+
+[experimental]
+  allowed_public_ports = []
+  auto_rollback = true
+
+[[services]]
+  http_checks = []
+  internal_port = 80
+  processes = ["app"]
+  protocol = "tcp"
+  script_checks = []
+  [services.concurrency]
+    hard_limit = 25
+    soft_limit = 20
+    type = "connections"
+
+  [[services.ports]]
+    force_https = true
+    handlers = ["http"]
+    port = 80
+
+  [[services.ports]]
+    handlers = ["tls", "http"]
+    port = 443
+
+  [[services.tcp_checks]]
+    grace_period = "1s"
+    interval = "15s"
+    restart_limit = 0
+    timeout = "2s"
